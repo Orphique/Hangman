@@ -1,0 +1,58 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+public class GameUI {
+    private String DisplayWord;
+    private final Scanner scanner = new Scanner(System.in);
+    public void displayWelcome() {
+        System.out.println("===== Welcome to Hangman game! =====");
+    }
+    public void displayGameState(GameLogic game) {
+        System.out.println("------------------------------------");
+
+        drawHangman(game.getIncorrectGuesses());
+
+        DisplayWord = game.getDisplayWord();
+        System.out.printf("Word: %s%n",DisplayWord);
+
+        System.out.printf("Incorrect Guesses: %d/%d%n",game.getIncorrectGuesses(), game.getMaxIncorrectGuesses());
+
+        System.out.println(formatGuessedLetters(game.getGuessedLetters()));
+    }
+
+    public char getGuessFromUser() {
+        System.out.print("Guess a letter: ");
+        String word = scanner.next(".").toUpperCase();
+        return word.charAt(0);
+    }
+    public void displayResult(GameLogic game) {
+        System.out.println("===== Game Over! =====");
+        if(game.isWon()){
+            System.out.println("Congratulations, you have WON!");
+        }else {
+            System.out.printf("Sorry, you LOST! The word was: %s%n", game.getHiddenWord());
+            drawHangman(game.getIncorrectGuesses());
+        }
+
+    }
+    private String formatGuessedLetters(ArrayList<Character> letters) {
+        String guess = "Used Letters: ";
+
+        // loop through letters array one by one
+        guess += letters.toString().replace("[", "").replace("]", "");
+
+        guess += "\n------------------------------------";
+        return guess;
+    }
+
+    private void drawHangman(int stage) {
+        System.out.println("+---+");
+        if (stage == 0) System.out.println("| | \n| \n| \n| \n|");
+        else if (stage == 1) System.out.println("|   | \n|   O \n| \n| \n|");
+        else if (stage == 2) System.out.println("|   | \n|   O \n|   | \n| \n|");
+        else if (stage == 3) System.out.println("|   | \n|   O \n|  /| \n| \n|");
+        else if (stage == 4) System.out.println("|   | \n|   O \n|  /|\\ \n| \n|");
+        else if (stage == 5) System.out.println("|   | \n|   O \n|  /|\\ \n| / \n|");
+        else System.out.println("|   | \n|   O \n|  /|\\ \n|  / \\ \n|");
+        System.out.println("=======");
+    }
+}
