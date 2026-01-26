@@ -4,6 +4,8 @@ public class WordLoader {
             "JAVA", "PROGRAMMING", "OBJECT", "ORIENTED", "HANGMAN"
     };
     private final Random random = new Random();
+
+    // Select random word from WORDS using randomize index
     public String selectRandomWord() {
         return WORDS[random.nextInt(WORDS.length)];
     }

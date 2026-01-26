@@ -9,6 +9,7 @@ public class GameLogic {
     private int incorrectGuesses = 0;
 
     public GameLogic(String word) {
+        // Constructor - assign hidden word and create series of underscores
         displayWord = word.replaceAll(".", "_");
         hiddenWord = word;
     }
@@ -20,13 +21,15 @@ public class GameLogic {
         } else guessedLetters.add(guess);
 
         // manipulate displayWord string
+        // Decide if guess wrong or correct
         if(hiddenWord.indexOf(guess) != -1){
             for(int i = 0; i < hiddenWord.length(); i++){
+                //revealed all correct guess word in the correct positions within the word's representation
                 if(guess == hiddenWord.charAt(i)){
                     displayWord = displayWord.substring(0,i) + guess + displayWord.substring(i+1);
                 }
             }
-        } else incorrectGuesses++;
+        } else incorrectGuesses++; // Counted wrong guess
         return true;
     }
 
@@ -50,14 +53,17 @@ public class GameLogic {
         return MAX_INCORRECT_GUESSES;
     }
 
+    // Decide win or lose
     public boolean isGameOver() {
         return isLost() || isWon();
     }
 
+    // Won if there are no underscores left
     public boolean isWon() {
         return !displayWord.contains("_");
     }
 
+    // Lost if there are no longer any attempt
     public boolean isLost() {
         return incorrectGuesses == MAX_INCORRECT_GUESSES;
     }

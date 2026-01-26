@@ -3,9 +3,13 @@ import java.util.Scanner;
 public class GameUI {
     private String DisplayWord;
     private final Scanner scanner = new Scanner(System.in);
+
+    // Display welcome scene
     public void displayWelcome() {
         System.out.println("===== Welcome to Hangman game! =====");
     }
+
+    // Display guess result
     public void displayGameState(GameLogic game) {
         System.out.println("------------------------------------");
 
@@ -19,11 +23,14 @@ public class GameUI {
         System.out.println(formatGuessedLetters(game.getGuessedLetters()));
     }
 
+    // Received the guessed letter from player
     public char getGuessFromUser() {
         System.out.print("Guess a letter: ");
         String word = scanner.next(".").toUpperCase();
-        return word.charAt(0);
+        return word.charAt(0); // Only one character
     }
+
+    // Display win or lose
     public void displayResult(GameLogic game) {
         System.out.println("===== Game Over! =====");
         if(game.isWon()){
@@ -34,6 +41,8 @@ public class GameUI {
         }
 
     }
+
+    // Revealed the already used letters
     private String formatGuessedLetters(ArrayList<Character> letters) {
         String guess = "Used Letters: ";
 
@@ -44,6 +53,7 @@ public class GameUI {
         return guess;
     }
 
+    // Display hangman and its stage
     private void drawHangman(int stage) {
         System.out.println("+---+");
         if (stage == 0) System.out.println("| | \n| \n| \n| \n|");
