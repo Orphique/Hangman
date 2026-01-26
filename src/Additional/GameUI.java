@@ -73,4 +73,14 @@ public class GameUI {
         String answer = scanner.next().toLowerCase();
         return answer.charAt(0);
     }
+
+    private void option(){
+        System.out.print("1) 2 Player");
+        System.out.print("2) Multiplayer");
+        System.out.print("3) Single player");
+
+        System.out.print("a) Random word");
+        System.out.print("a) Pick a word");
+    }
+
 }
