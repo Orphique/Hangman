@@ -15,8 +15,9 @@ public class GameLogic {
 
     public boolean guessLetter(char guess) {
         // restricting guessedLetters
-        guessedLetters.add(guess);
-
+        if(String.valueOf(guessedLetters).contains(String.valueOf(guess))){
+            return true;
+        } else guessedLetters.add(guess);
 
         // manipulate displayWord string
         if(hiddenWord.indexOf(guess) != -1){
