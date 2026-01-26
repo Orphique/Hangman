@@ -15,13 +15,16 @@ public class GameUI {
     public void displayGameState(GameLogic game) {
         System.out.println("------------------------------------");
 
+        // Hangman
         drawHangman(game.getIncorrectGuesses());
 
+        // Display underscores word
         DisplayWord = game.getDisplayWord();
         System.out.printf("Word: %s%n",DisplayWord);
 
+        // Display incorrect guesses attempt
         System.out.printf("Incorrect Guesses: %d/%d%n",game.getIncorrectGuesses(), game.getMaxIncorrectGuesses());
-
+        // Display incorrect guesses character
         System.out.println(formatGuessedLetters(game.getGuessedLetters()));
     }
 
@@ -74,13 +77,34 @@ public class GameUI {
         return answer.charAt(0);
     }
 
-    private void option(){
-        System.out.print("1) 2 Player");
-        System.out.print("2) Multiplayer");
-        System.out.print("3) Single player");
 
-        System.out.print("a) Random word");
-        System.out.print("a) Pick a word");
+    // Game mode option logic
+    public void modeOption() {
+        System.out.println("1) 2 Player");
+        System.out.println("2) Multiplayer");
+        System.out.println("3) Single player");
+        System.out.print("Select mode: ");
+        int mode = scanner.nextInt();
+        while (mode < 1 || mode > 3) {
+            System.out.print("Try again. Select mode: ");
+            mode = scanner.nextInt();
+        }
+        System.out.println();
+    }
+    public String wordOption(){
+        System.out.println("1) Random word");
+        System.out.println("2) Pick a word");
+        System.out.print("Select mode: ");
+        int wording = scanner.nextInt();
+        while(wording < 1 || wording > 2){
+            System.out.println("Try again. Select mode: ");
+            wording = scanner.nextInt();
+        }
+        if(wording == 2) {
+            System.out.print("Enter phrase: ");
+            return scanner.next().toUpperCase();
+        }
+        return "1";
     }
 
 }

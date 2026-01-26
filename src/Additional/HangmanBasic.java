@@ -9,14 +9,17 @@ public class HangmanBasic {
         // Instance: Display the user interface of the Hangman game.
         GameUI ui = new GameUI();
 
-        // Select random word from WordLoader
-        String wordToGuess = loader.selectRandomWord();
+        // Display Welcome scene
+        ui.displayWelcome();
+
+        // Display option for guessing word
+        // 1) Random word
+        // 2) Pick a word
+        String S = ui.wordOption();
+        String wordToGuess = S == "1" ? loader.selectRandomWord() : S;
 
         // Implement the rules of the Hangman game
         GameLogic game = new GameLogic(wordToGuess);
-
-        // Display Welcome scene
-        ui.displayWelcome();
 
         while (!game.continuing) {
             while (!game.isGameOver()) {
