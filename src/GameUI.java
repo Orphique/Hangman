@@ -56,12 +56,12 @@ public class GameUI {
     // Display hangman and its stage
     private void drawHangman(int stage) {
         System.out.println("+---+");
-        if (stage == 0) System.out.println("| | \n| \n| \n| \n|");
+        if (stage == 0) System.out.println("|   | \n| \n| \n| \n|");
         else if (stage == 1) System.out.println("|   | \n|   O \n| \n| \n|");
         else if (stage == 2) System.out.println("|   | \n|   O \n|   | \n| \n|");
         else if (stage == 3) System.out.println("|   | \n|   O \n|  /| \n| \n|");
         else if (stage == 4) System.out.println("|   | \n|   O \n|  /|\\ \n| \n|");
-        else if (stage == 5) System.out.println("|   | \n|   O \n|  /|\\ \n| / \n|");
+        else if (stage == 5) System.out.println("|   | \n|   O \n|  /|\\ \n|  / \n|");
         else System.out.println("|   | \n|   O \n|  /|\\ \n|  / \\ \n|");
         System.out.println("=======");
     }

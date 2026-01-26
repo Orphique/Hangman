@@ -1,10 +1,10 @@
 public class HangmanBasic {
     public static void main(String[] args) {
 
-        // Store the guessing words to be used in the Hangman game
+        // Instance: Store the guessing words to be used in the Hangman game
         WordLoader loader = new WordLoader();
 
-        // Display the user interface of the Hangman game.
+        // Instance: Display the user interface of the Hangman game.
         GameUI ui = new GameUI();
 
         // Select random word from WordLoader
