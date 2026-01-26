@@ -1,3 +1,5 @@
+package Additional;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 public class GameUI {
@@ -39,6 +41,7 @@ public class GameUI {
             System.out.printf("Sorry, you LOST! The word was: %s%n", game.getHiddenWord());
             drawHangman(game.getIncorrectGuesses());
         }
+        game.Continue(offerToContinue());
     }
 
     // Revealed the already used letters
@@ -63,5 +66,11 @@ public class GameUI {
         else if (stage == 5) System.out.println("|   | \n|   O \n|  /|\\ \n|  / \n|");
         else System.out.println("|   | \n|   O \n|  /|\\ \n|  / \\ \n|");
         System.out.println("=======");
+    }
+
+    private char offerToContinue(){
+        System.out.print("Do you want to continue ?(y/n) ");
+        String answer = scanner.next().toLowerCase();
+        return answer.charAt(0);
     }
 }

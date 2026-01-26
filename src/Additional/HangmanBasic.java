@@ -1,3 +1,5 @@
+package Additional;
+
 public class HangmanBasic {
     public static void main(String[] args) {
 
@@ -15,15 +17,18 @@ public class HangmanBasic {
 
         // Display Welcome scene
         ui.displayWelcome();
-        while (!game.isGameOver()) {
-            // Display result of each guess
-            ui.displayGameState(game);
 
-            // Player guess one letter at a time.
-            game.guessLetter(ui.getGuessFromUser());
+        while (!game.continuing) {
+            while (!game.isGameOver()) {
+                // Display result of each guess
+                ui.displayGameState(game);
+
+                // Player guess one letter at a time.
+                game.guessLetter(ui.getGuessFromUser());
+            }
+
+            // Display win or lose scene
+            ui.displayResult(game);
         }
-
-        // Display win or lose scene
-        ui.displayResult(game);
     }
 }
