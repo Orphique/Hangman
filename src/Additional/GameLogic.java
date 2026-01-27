@@ -9,11 +9,21 @@ public class GameLogic {
     private final ArrayList<Character> guessedLetters = new ArrayList<>();
     private int incorrectGuesses = 0;
     public boolean continuing = false;
+    private String playerName = "player";
 
     public GameLogic(String word) {
         // Constructor - assign hidden word and create series of underscores
         displayWord = word.replaceAll(".", "_");
         hiddenWord = word;
+    }
+    public GameLogic(String word, String name) {
+        // Constructor - assign hidden word and create series of underscores
+        displayWord = word.replaceAll(".", "_");
+        hiddenWord = word;
+        playerName = name;
+    }
+    public String getPlayerName(){
+        return playerName;
     }
 
     public boolean guessLetter(char guess) {
@@ -70,7 +80,4 @@ public class GameLogic {
         return incorrectGuesses == MAX_INCORRECT_GUESSES;
     }
 
-    public void Continue(char ans){
-        continuing = ans != 'y';
-    }
 }

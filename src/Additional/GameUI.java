@@ -44,7 +44,6 @@ public class GameUI {
             System.out.printf("Sorry, you LOST! The word was: %s%n", game.getHiddenWord());
             drawHangman(game.getIncorrectGuesses());
         }
-        game.Continue(offerToContinue());
     }
 
     // Revealed the already used letters
@@ -71,25 +70,25 @@ public class GameUI {
         System.out.println("=======");
     }
 
-    private char offerToContinue(){
+    public boolean offerToContinue(){
         System.out.print("Do you want to continue ?(y/n) ");
         String answer = scanner.next().toLowerCase();
-        return answer.charAt(0);
+        return answer.equals("y");
     }
 
 
     // Game mode option logic
-    public void modeOption() {
-        System.out.println("1) 2 Player");
-        System.out.println("2) Multiplayer");
-        System.out.println("3) Single player");
+    public int modeOption() {
+        System.out.println("1) Single player");
+        System.out.println("2) 2 player");
+        System.out.println("3) Multiplayer");
         System.out.print("Select mode: ");
         int mode = scanner.nextInt();
         while (mode < 1 || mode > 3) {
             System.out.print("Try again. Select mode: ");
             mode = scanner.nextInt();
         }
-        System.out.println();
+        return mode;
     }
     public String wordOption(){
         System.out.println("1) Random word");
@@ -107,4 +106,17 @@ public class GameUI {
         return "1";
     }
 
+    public void playerTurn(int playerNum){
+        System.out.println("--------------------------");
+        System.out.println("player "+playerNum+" turn");
+        System.out.println("--------------------------");
+    }
+    public void displayResult2P(GameLogic... players) {
+        System.out.println("===== Game Over! =====");
+        for (GameLogic player : players) {
+            if (player.isWon()) {
+                System.out.println("Congratulations, " + player.getPlayerName() + " have WON!");
+            }
+        }
+    }
 }
