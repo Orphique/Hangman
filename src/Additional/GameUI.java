@@ -1,6 +1,7 @@
 package Additional;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 public class GameUI {
     private String DisplayWord;
@@ -76,31 +77,48 @@ public class GameUI {
         return answer.equals("y");
     }
 
-
     // Game mode option logic
     public int modeOption() {
         System.out.println("1) Single player");
         System.out.println("2) 2 player");
         System.out.println("3) Multiplayer");
-        System.out.print("Select mode: ");
-        int mode = scanner.nextInt();
-        while (mode < 1 || mode > 3) {
-            System.out.print("Try again. Select mode: ");
-            mode = scanner.nextInt();
+        int mode = 0;
+        while(true) {
+            try {
+                Scanner scnr = new Scanner(System.in);
+                System.out.print("Select mode: ");
+                mode = scnr.nextInt();
+                if (mode < 1 || mode > 3) throw new Exception();
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input! Not a number, try again");
+            } catch (Exception e) {
+                System.out.println("Only 1, 2 or 3. Try again");
+            }
         }
         return mode;
     }
+
     public String wordOption(){
         System.out.println("1) Random word");
         System.out.println("2) Pick a word");
         System.out.print("Select mode: ");
-        int wording = scanner.nextInt();
-        while(wording < 1 || wording > 2){
-            System.out.println("Try again. Select mode: ");
-            wording = scanner.nextInt();
+        int wording = 0;
+        while(true) {
+            try {
+                Scanner scnr = new Scanner(System.in);
+                System.out.print("Select mode: ");
+                wording = scnr.nextInt();
+                if (wording < 1 || wording > 2) throw new Exception();
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input! Not a number, try again");
+            } catch (Exception e) {
+                System.out.println("Only 1, 2 or 3. Try again");
+            }
         }
         if(wording == 2) {
-            System.out.print("Enter phrase: ");
+            System.out.print("\nEnter phrase: ");
             return scanner.next().toUpperCase();
         }
         return "1";
@@ -118,5 +136,10 @@ public class GameUI {
                 System.out.println("Congratulations, " + player.getPlayerName() + " have WON!");
             }
         }
+    }
+
+    public int PlayerNumber(){
+        System.out.print("How many player ?");
+        return scanner.nextInt();
     }
 }

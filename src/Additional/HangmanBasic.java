@@ -86,6 +86,35 @@ public class HangmanBasic {
                     ui.displayResult2P(game1, game2);
                     break;
                 case 3:
+                    // Ask how many player
+                    int numPlayer = ui.PlayerNumber();
+
+                    // Display option for guessing word
+                    // 1) Random word
+                    // 2) Pick a word
+                    String sAll = ui.wordOption();
+                    String wordToGuessAll = sAll == "1" ? loader.selectRandomWord() : sAll;
+
+                    // Create instance per player
+                    GameLogic[] games = new GameLogic[numPlayer];
+                    for(int i = 1; i <= numPlayer; i++) {
+                        games[i-1] = new GameLogic(wordToGuessAll, "player"+i);
+                    }
+                    boolean end = true;
+                    while (end) {
+                        int turn = 1;
+                        for (GameLogic Player : games) {
+                            ui.playerTurn(turn);
+                            ui.displayGameState(Player);
+                            Player.guessLetter(ui.getGuessFromUser());
+                            if(Player.isWon()) {
+                                end = false;
+                                break;
+                            }
+                            turn++;
+                        }
+                    }
+                    ui.displayResult2P(games);
                     break;
             }
             // Ask player to continue or not
