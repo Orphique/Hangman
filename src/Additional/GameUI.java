@@ -30,10 +30,20 @@ public class GameUI {
     }
 
     // Received the guessed letter from player
-    public char getGuessFromUser() {
-        System.out.print("Guess a letter: ");
-        String word = scanner.next(".").toUpperCase();
-        return word.charAt(0); // Only one character
+    public char getGuessFromUser(GameLogic game) {
+        while(true) {
+            try {
+                Scanner scnr = new Scanner(System.in);
+                System.out.print("Guess a letter: ");
+                String word = scnr.next(".").toUpperCase();
+                if (game.getGuessedLetters().contains(word.charAt(0))) throw new Exception();
+                return word.charAt(0); // Only one character
+            } catch (InputMismatchException e) {
+                System.out.println("Only 1 letter. Try again");
+            } catch (Exception e) {
+                System.out.println("Already guessed. Try again");
+            }
+        }
     }
 
     // Display win or lose
@@ -114,11 +124,11 @@ public class GameUI {
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input! Not a number, try again");
             } catch (Exception e) {
-                System.out.println("Only 1, 2 or 3. Try again");
+                System.out.println("Only 1 or 2 . Try again");
             }
         }
         if(wording == 2) {
-            System.out.print("\nEnter phrase: ");
+            System.out.print("Enter phrase: ");
             return scanner.next().toUpperCase();
         }
         return "1";
@@ -139,7 +149,14 @@ public class GameUI {
     }
 
     public int PlayerNumber(){
-        System.out.print("How many player ?");
-        return scanner.nextInt();
+        while(true) {
+            try {
+                Scanner scnr = new Scanner(System.in);
+                System.out.print("How many player ?");
+                return scnr.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input! Not a number, try again");
+            }
+        }
     }
 }

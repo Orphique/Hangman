@@ -1,6 +1,6 @@
 package Additional;
 
-public class HangmanBasic {
+public class HangmanAdditional {
     public static void main(String[] args) {
         boolean continuing = true;
 
@@ -35,7 +35,7 @@ public class HangmanBasic {
                         ui.displayGameState(game);
 
                         // Player guess one letter at a time.
-                        game.guessLetter(ui.getGuessFromUser());
+                        game.guessLetter(ui.getGuessFromUser(game));
                     }
 
                     // Display win or lose scene
@@ -68,7 +68,7 @@ public class HangmanBasic {
                         // Display result of player 1 guess
                         ui.displayGameState(game1);
                         // Player 1 guess one letter at a time.
-                        game1.guessLetter(ui.getGuessFromUser());
+                        game1.guessLetter(ui.getGuessFromUser(game1));
                         // Player 1 win first
                         if (game1.isWon()) break;
 
@@ -77,7 +77,7 @@ public class HangmanBasic {
                         // Display result of player 2 guess
                         ui.displayGameState(game2);
                         // Player2 guess one letter at a time.
-                        game2.guessLetter(ui.getGuessFromUser());
+                        game2.guessLetter(ui.getGuessFromUser(game2));
                         // Player 2 win first
                         if (game2.isWon()) break;
                     }
@@ -106,7 +106,7 @@ public class HangmanBasic {
                         for (GameLogic Player : games) {
                             ui.playerTurn(turn);
                             ui.displayGameState(Player);
-                            Player.guessLetter(ui.getGuessFromUser());
+                            Player.guessLetter(ui.getGuessFromUser(Player));
                             if(Player.isWon()) {
                                 end = false;
                                 break;

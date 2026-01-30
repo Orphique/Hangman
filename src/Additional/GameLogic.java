@@ -36,7 +36,7 @@ public class GameLogic {
         // Decide if guess wrong or correct
         if(hiddenWord.indexOf(guess) != -1){
             for(int i = 0; i < hiddenWord.length(); i++){
-                //revealed all correct guess word in the correct positions within the word's representation
+                // Revealed all correct guess word in the correct positions within the word's representation
                 if(guess == hiddenWord.charAt(i)){
                     displayWord = displayWord.substring(0,i) + guess + displayWord.substring(i+1);
                 }
