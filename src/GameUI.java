@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 public class GameUI {
     private String DisplayWord;
@@ -24,10 +25,20 @@ public class GameUI {
     }
 
     // Received the guessed letter from player
-    public char getGuessFromUser() {
-        System.out.print("Guess a letter: ");
-        String word = scanner.next(".").toUpperCase();
-        return word.charAt(0); // Only one character
+    public char getGuessFromUser(GameLogic game) {
+        while(true) {
+            try {
+                Scanner scnr = new Scanner(System.in);
+                System.out.print("Guess a letter: ");
+                String word = scnr.next(".").toUpperCase();
+                if (game.getGuessedLetters().contains(word.charAt(0))) throw new Exception();
+                return word.charAt(0); // Only one character
+            } catch (InputMismatchException e) {
+                System.out.println("Only 1 letter. Try again");
+            } catch (Exception e) {
+                System.out.println("Already guessed. Try again");
+            }
+        }
     }
 
     // Display win or lose

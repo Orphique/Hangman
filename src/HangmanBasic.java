@@ -20,7 +20,7 @@ public class HangmanBasic {
             ui.displayGameState(game);
 
             // Player guess one letter at a time.
-            game.guessLetter(ui.getGuessFromUser());
+            game.guessLetter(ui.getGuessFromUser(game));
         }
 
         // Display win or lose scene
