@@ -25,8 +25,8 @@ public class HangmanAdditional {
                     // Display option for guessing word
                     // 1) Random word
                     // 2) Pick a word
-                    String S = ui.wordOption();
-                    String wordToGuess = S == "1" ? loader.selectRandomWord() : S;
+                    String selectedWord = ui.wordOption();
+                    String wordToGuess = selectedWord == null ? loader.selectRandomWord() : selectedWord;
 
                     // Instance: Implement the rules of the Hangman game
                     GameLogic game = new GameLogic(wordToGuess);
@@ -47,8 +47,8 @@ public class HangmanAdditional {
                     // Display option for player 2 guessing word
                     // 1) Random word
                     // 2) Pick a word
-                    String S2 = ui.wordOption();
-                    String wordToGuess2 = S2 == "1" ? loader.selectRandomWord() : S2;
+                    String selectedWord2 = ui.wordOption();
+                    String wordToGuess2 = selectedWord2 == null ? loader.selectRandomWord() : selectedWord2;
 
 
                     // Player 2 turn to pick player 1 guess word
@@ -56,8 +56,8 @@ public class HangmanAdditional {
                     // Display option for player 1 guessing word
                     // 1) Random word
                     // 2) Pick a word
-                    String S1 = ui.wordOption();
-                    String wordToGuess1 = S1 == "1" ? loader.selectRandomWord() : S1;
+                    String selectedWord1 = ui.wordOption();
+                    String wordToGuess1 = selectedWord1 == null ? loader.selectRandomWord() : selectedWord1;
 
                     // Instance: Implement the rules of the Hangman game
                     GameLogic game1 = new GameLogic(wordToGuess1, "player1");
@@ -92,8 +92,8 @@ public class HangmanAdditional {
                     // Display option for guessing word
                     // 1) Random word
                     // 2) Pick a word
-                    String sAll = ui.wordOption();
-                    String wordToGuessAll = sAll == "1" ? loader.selectRandomWord() : sAll;
+                    String selectedWordAll = ui.wordOption();
+                    String wordToGuessAll = selectedWordAll == null ? loader.selectRandomWord() : selectedWordAll;
 
                     // Create instance per player
                     GameLogic[] games = new GameLogic[numPlayer];

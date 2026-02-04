@@ -36,7 +36,8 @@ public class WordLoader {
 
             WORDS = response[0].substring(1, response[0].length() - 1).split(",");
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Failed to fetch words. Using fallback.");
+            WORDS = new String[] {"JAVA", "PROGRAMMING", "OBJECT", "ORIENTED", "HANGMAN"};
         }
     }
 

@@ -8,7 +8,6 @@ public class GameLogic {
     private String displayWord;
     private final ArrayList<Character> guessedLetters = new ArrayList<>();
     private int incorrectGuesses = 0;
-    public boolean continuing = false;
     private String playerName = "player";
 
     public GameLogic(String word) {

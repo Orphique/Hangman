@@ -2,6 +2,7 @@ package Additional;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 public class GameUI {
     private String DisplayWord;
@@ -27,21 +28,27 @@ public class GameUI {
         System.out.printf("Incorrect Guesses: %d/%d%n",game.getIncorrectGuesses(), game.getMaxIncorrectGuesses());
         // Display incorrect guesses character
         System.out.println(formatGuessedLetters(game.getGuessedLetters()));
+        System.out.println("------------------------------------");
     }
 
     // Received the guessed letter from player
     public char getGuessFromUser(GameLogic game) {
         while(true) {
             try {
-                Scanner scnr = new Scanner(System.in);
                 System.out.print("Guess a letter: ");
-                String word = scnr.next(".").toUpperCase();
+                String word = scanner.next(".").toUpperCase();
+                if (!Character.isLetter(word.charAt(0))) throw new Error();
                 if (game.getGuessedLetters().contains(word.charAt(0))) throw new Exception();
                 return word.charAt(0); // Only one character
             } catch (InputMismatchException e) {
                 System.out.println("Only 1 letter. Try again");
+                scanner.next();
             } catch (Exception e) {
                 System.out.println("Already guessed. Try again");
+                scanner.next();
+            } catch (Error e) {
+                System.out.println("Numbers and special characters are not allowed. Try again");
+                scanner.next();
             }
         }
     }
@@ -64,20 +71,35 @@ public class GameUI {
         // loop through letters array one by one
         guess += letters.toString().replace("[", "").replace("]", "");
 
-        guess += "\n------------------------------------";
         return guess;
     }
 
     // Display hangman and its stage
     private void drawHangman(int stage) {
         System.out.println("+---+");
-        if (stage == 0) System.out.println("|   | \n| \n| \n| \n|");
-        else if (stage == 1) System.out.println("|   | \n|   O \n| \n| \n|");
-        else if (stage == 2) System.out.println("|   | \n|   O \n|   | \n| \n|");
-        else if (stage == 3) System.out.println("|   | \n|   O \n|  /| \n| \n|");
-        else if (stage == 4) System.out.println("|   | \n|   O \n|  /|\\ \n| \n|");
-        else if (stage == 5) System.out.println("|   | \n|   O \n|  /|\\ \n|  / \n|");
-        else System.out.println("|   | \n|   O \n|  /|\\ \n|  / \\ \n|");
+        switch (stage) {
+            case 0:
+                System.out.println("|   | \n| \n| \n| \n|");
+                break;
+            case 1:
+                System.out.println("|   | \n|   O \n| \n| \n|");
+                break;
+            case 2:
+                System.out.println("|   | \n|   O \n|   | \n| \n|");
+                break;
+            case 3:
+                System.out.println("|   | \n|   O \n|  /| \n| \n|");
+                break;
+            case 4:
+                System.out.println("|   | \n|   O \n|  /|\\ \n| \n|");
+                break;
+            case 5:
+                System.out.println("|   | \n|   O \n|  /|\\ \n|  / \n|");
+                break;
+            case 6:
+                System.out.println("|   | \n|   O \n|  /|\\ \n|  / \\ \n|");
+                break;
+        }
         System.out.println("=======");
     }
 
@@ -92,46 +114,44 @@ public class GameUI {
         System.out.println("1) Single player");
         System.out.println("2) 2 player");
         System.out.println("3) Multiplayer");
-        int mode = 0;
         while(true) {
             try {
-                Scanner scnr = new Scanner(System.in);
                 System.out.print("Select mode: ");
-                mode = scnr.nextInt();
+                int mode = scanner.nextInt();
                 if (mode < 1 || mode > 3) throw new Exception();
-                break;
+                return mode;
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input! Not a number, try again");
+                scanner.next();
             } catch (Exception e) {
                 System.out.println("Only 1, 2 or 3. Try again");
+                scanner.next();
             }
         }
-        return mode;
     }
 
     public String wordOption(){
         System.out.println("1) Random word");
         System.out.println("2) Pick a word");
-        System.out.print("Select mode: ");
-        int wording = 0;
+
         while(true) {
             try {
-                Scanner scnr = new Scanner(System.in);
                 System.out.print("Select mode: ");
-                wording = scnr.nextInt();
-                if (wording < 1 || wording > 2) throw new Exception();
-                break;
+                int wording = scanner.nextInt();
+                if(wording == 1) return null;
+                if(wording == 2) {
+                    System.out.print("Enter phrase: ");
+                    return scanner.next().toUpperCase();
+                }
+                 throw new Exception();
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input! Not a number, try again");
+                scanner.next();
             } catch (Exception e) {
                 System.out.println("Only 1 or 2 . Try again");
+                scanner.next();
             }
         }
-        if(wording == 2) {
-            System.out.print("Enter phrase: ");
-            return scanner.next().toUpperCase();
-        }
-        return "1";
     }
 
     public void playerTurn(int playerNum){
@@ -139,24 +159,108 @@ public class GameUI {
         System.out.println("player "+playerNum+" turn");
         System.out.println("--------------------------");
     }
+
     public void displayResult2P(GameLogic... players) {
         System.out.println("===== Game Over! =====");
         for (GameLogic player : players) {
             if (player.isWon()) {
-                System.out.println("Congratulations, " + player.getPlayerName() + " have WON!");
+                System.out.println("Congratulations, " + player.getPlayerName() +
+                        " have WON! The word was: " + player.getHiddenWord());
             }
+        }
+        List<List<String>> allPlayers = new ArrayList<>();
+        for (GameLogic player : players){
+            List<String> lines = new ArrayList<>();
+
+            for (String hangman : getHangman(player.getIncorrectGuesses())){
+                lines.add(hangman);
+            }
+            lines.add(player.getPlayerName());
+            lines.add("Incorrect Guesses: "+ player.getIncorrectGuesses()+"/"+player.getMaxIncorrectGuesses());
+            lines.add(formatGuessedLetters(player.getGuessedLetters()));
+
+            allPlayers.add(lines);
+        }
+        int rows = allPlayers.get(0).size();
+
+        for (int row = 0; row < rows; row++) {
+            for (List<String> player : allPlayers) {
+                System.out.printf("%-50s", player.get(row));
+            }
+            System.out.println();
         }
     }
 
     public int PlayerNumber(){
         while(true) {
             try {
-                Scanner scnr = new Scanner(System.in);
                 System.out.print("How many player ?");
-                return scnr.nextInt();
+                return scanner.nextInt();
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input! Not a number, try again");
+                scanner.next();
             }
         }
+    }
+
+    private String[] getHangman(int stage) {
+        return switch (stage) {
+            case 0 -> new String[]{
+                    "+---+",
+                    "|   |",
+                    "|",
+                    "|",
+                    "|",
+                    "======="
+            };
+            case 1 -> new String[]{
+                    "+---+",
+                    "|   |",
+                    "|   O",
+                    "|",
+                    "|",
+                    "======="
+            };
+            case 2 -> new String[]{
+                    "+---+",
+                    "|   |",
+                    "|   O",
+                    "|   |",
+                    "|",
+                    "======="
+            };
+            case 3 -> new String[]{
+                    "+---+",
+                    "|   |",
+                    "|   O",
+                    "|  /|",
+                    "|",
+                    "======="
+            };
+            case 4 -> new String[]{
+                    "+---+",
+                    "|   |",
+                    "|   O",
+                    "|  /|\\",
+                    "|",
+                    "======="
+            };
+            case 5 -> new String[]{
+                    "+---+",
+                    "|   |",
+                    "|   O",
+                    "|  /|\\",
+                    "|  /",
+                    "======="
+            };
+            default -> new String[]{
+                    "+---+",
+                    "|   |",
+                    "|   O",
+                    "|  /|\\",
+                    "|  / \\",
+                    "======="
+            };
+        };
     }
 }

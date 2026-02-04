@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class GameLogic {
     private static final int MAX_INCORRECT_GUESSES = 6;
