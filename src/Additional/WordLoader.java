@@ -16,7 +16,7 @@ public class WordLoader {
     public String selectRandomWord() {
         fetch();
         String word = WORDS[random.nextInt(WORDS.length)];
-        return word.substring(1, word.length() - 1);
+        return word.substring(1, word.length() - 1).toUpperCase();
     }
     public void fetch() {
         try {

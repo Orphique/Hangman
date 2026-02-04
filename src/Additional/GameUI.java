@@ -69,7 +69,9 @@ public class GameUI {
         String guess = "Used Letters: ";
 
         // loop through letters array one by one
-        guess += letters.toString().replace("[", "").replace("]", "");
+        for (int i = 0; i < letters.size(); i++) {
+            guess += letters.get(i);
+        }
 
         return guess;
     }
@@ -77,29 +79,13 @@ public class GameUI {
     // Display hangman and its stage
     private void drawHangman(int stage) {
         System.out.println("+---+");
-        switch (stage) {
-            case 0:
-                System.out.println("|   | \n| \n| \n| \n|");
-                break;
-            case 1:
-                System.out.println("|   | \n|   O \n| \n| \n|");
-                break;
-            case 2:
-                System.out.println("|   | \n|   O \n|   | \n| \n|");
-                break;
-            case 3:
-                System.out.println("|   | \n|   O \n|  /| \n| \n|");
-                break;
-            case 4:
-                System.out.println("|   | \n|   O \n|  /|\\ \n| \n|");
-                break;
-            case 5:
-                System.out.println("|   | \n|   O \n|  /|\\ \n|  / \n|");
-                break;
-            case 6:
-                System.out.println("|   | \n|   O \n|  /|\\ \n|  / \\ \n|");
-                break;
-        }
+        if (stage == 0) System.out.println("|   | \n| \n| \n| \n|");
+        else if (stage == 1) System.out.println("|   | \n|   O \n| \n| \n|");
+        else if (stage == 2) System.out.println("|   | \n|   O \n|   | \n| \n|");
+        else if (stage == 3) System.out.println("|   | \n|   O \n|  /| \n| \n|");
+        else if (stage == 4) System.out.println("|   | \n|   O \n|  /|\\ \n| \n|");
+        else if (stage == 5) System.out.println("|   | \n|   O \n|  /|\\ \n|  / \n|");
+        else System.out.println("|   | \n|   O \n|  /|\\ \n|  / \\ \n|");
         System.out.println("=======");
     }
 
@@ -166,7 +152,9 @@ public class GameUI {
             if (player.isWon()) {
                 System.out.println("Congratulations, " + player.getPlayerName() +
                         " have WON! The word was: " + player.getHiddenWord());
+                break;
             }
+            System.out.println("DRAW! The word was: " + player.getHiddenWord());
         }
         List<List<String>> allPlayers = new ArrayList<>();
         for (GameLogic player : players){

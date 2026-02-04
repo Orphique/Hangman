@@ -62,7 +62,7 @@ public class HangmanAdditional {
                     // Instance: Implement the rules of the Hangman game
                     GameLogic game1 = new GameLogic(wordToGuess1, "player1");
                     GameLogic game2 = new GameLogic(wordToGuess2, "player2");
-                    while (true) {
+                    while (!game1.isGameOver() || !game2.isGameOver()) {
                         // Player 1 turn
                         ui.playerTurn(1);
                         // Display result of player 1 guess
@@ -78,8 +78,6 @@ public class HangmanAdditional {
                         ui.displayGameState(game2);
                         // Player2 guess one letter at a time.
                         game2.guessLetter(ui.getGuessFromUser(game2));
-                        // Player 2 win first
-                        if (game2.isWon()) break;
                     }
 
                     // Display win or lose scene
@@ -103,11 +101,16 @@ public class HangmanAdditional {
                     boolean end = true;
                     while (end) {
                         int turn = 1;
+                        int alive = games.length -1;
                         for (GameLogic Player : games) {
+                            if (Player.isLost()) {
+                                alive--;
+                                continue;
+                            }
                             ui.playerTurn(turn);
                             ui.displayGameState(Player);
                             Player.guessLetter(ui.getGuessFromUser(Player));
-                            if(Player.isWon()) {
+                            if(Player.isGameOver()) {
                                 end = false;
                                 break;
                             }
