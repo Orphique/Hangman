@@ -63,21 +63,24 @@ public class HangmanAdditional {
                     GameLogic game1 = new GameLogic(wordToGuess1, "player1");
                     GameLogic game2 = new GameLogic(wordToGuess2, "player2");
                     while (!game1.isGameOver() || !game2.isGameOver()) {
-                        // Player 1 turn
-                        ui.playerTurn(1);
-                        // Display result of player 1 guess
-                        ui.displayGameState(game1);
-                        // Player 1 guess one letter at a time.
-                        game1.guessLetter(ui.getGuessFromUser(game1));
-                        // Player 1 win first
-                        if (game1.isWon()) break;
-
-                        // Player 2 turn
-                        ui.playerTurn(2);
-                        // Display result of player 2 guess
-                        ui.displayGameState(game2);
-                        // Player2 guess one letter at a time.
-                        game2.guessLetter(ui.getGuessFromUser(game2));
+                        if(!game1.isLost()){
+                            // Player 1 turn
+                            ui.playerTurn(1);
+                            // Display result of player 1 guess
+                            ui.displayGameState(game1);
+                            // Player 1 guess one letter at a time.
+                            game1.guessLetter(ui.getGuessFromUser(game1));
+                            // Player 1 win first
+                            if (game1.isWon()) break;
+                        }
+                        if(!game2.isLost()) {
+                            // Player 2 turn
+                            ui.playerTurn(2);
+                            // Display result of player 2 guess
+                            ui.displayGameState(game2);
+                            // Player2 guess one letter at a time.
+                            game2.guessLetter(ui.getGuessFromUser(game2));
+                        }
                     }
 
                     // Display win or lose scene

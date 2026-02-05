@@ -148,14 +148,17 @@ public class GameUI {
 
     public void displayResult2P(GameLogic... players) {
         System.out.println("===== Game Over! =====");
+        boolean won = false;
         for (GameLogic player : players) {
             if (player.isWon()) {
                 System.out.println("Congratulations, " + player.getPlayerName() +
                         " have WON! The word was: " + player.getHiddenWord());
+                won = true;
                 break;
             }
-            System.out.println("DRAW! The word was: " + player.getHiddenWord());
         }
+        if (!won) System.out.println("DRAW! The word was: " + players[0].getHiddenWord());
+
         List<List<String>> allPlayers = new ArrayList<>();
         for (GameLogic player : players){
             List<String> lines = new ArrayList<>();
