@@ -36,13 +36,13 @@ public class GameUI {
                 return word.charAt(0); // Only one character
             } catch (InputMismatchException e) {
                 System.out.println("Only 1 letter. Try again");
-                scanner.next();
+                scanner.nextLine();
             } catch (Exception e) {
                 System.out.println("Already guessed. Try again");
-                scanner.next();
+                scanner.nextLine();
             } catch (Error e) {
                 System.out.println("Numbers and special characters are not allowed. Try again");
-                scanner.next();
+                scanner.nextLine();
             }
         }
     }

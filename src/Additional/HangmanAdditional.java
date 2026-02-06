@@ -2,7 +2,7 @@ package Additional;
 
 public class HangmanAdditional {
     public static void main(String[] args) {
-        boolean continuing = true;
+        boolean continuing;
 
         // Instance: Store the guessing words to be used in the Hangman game
         WordLoader loader = new WordLoader();
