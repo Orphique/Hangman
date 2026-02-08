@@ -1,3 +1,11 @@
+/*  Group 4
+Deng Yonghan (10271600)
+Bo HaoTian (10270562)
+Dylan Carson Sisnawan (10270412)
+Muhammad Farhan Bin Rosni (10265771)
+Matthew Albert Cahyadi(10270548)
+*/
+
 package Additional;
 
 public class HangmanAdditional {
@@ -104,21 +112,25 @@ public class HangmanAdditional {
                     boolean end = true;
                     while (end) {
                         int turn = 1;
-                        int alive = games.length -1;
+                        int alive = games.length;
                         for (GameLogic Player : games) {
+                            // Still continue if one of player loses
                             if (Player.isLost()) {
                                 alive--;
                                 continue;
                             }
-                            ui.playerTurn(turn);
+                            ui.playerTurn(turn++);
+                            System.out.println(alive);
                             ui.displayGameState(Player);
                             Player.guessLetter(ui.getGuessFromUser(Player));
-                            if(Player.isGameOver()) {
+                            // someone won first
+                            if(Player.isWon() ) {
                                 end = false;
                                 break;
                             }
-                            turn++;
                         }
+                        // Draw scenario
+                        if(alive == 0 ) break;
                     }
                     ui.displayResult2P(games);
                     break;

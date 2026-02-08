@@ -1,3 +1,11 @@
+/*  Group 4
+Deng Yonghan (10271600)
+Bo HaoTian (10270562)
+Dylan Carson Sisnawan (10270412)
+Muhammad Farhan Bin Rosni (10265771)
+Matthew Albert Cahyadi(10270548)
+*/
+
 package Additional;
 
 import java.util.ArrayList;
@@ -42,16 +50,16 @@ public class GameUI {
                 return word.charAt(0); // Only one character
             } catch (InputMismatchException e) {
                 System.out.println("Only 1 letter. Try again");
-                scanner.nextLine();
             } catch (Exception e) {
                 System.out.println("Already guessed. Try again");
-                scanner.nextLine();
             } catch (Error e) {
                 System.out.println("Numbers and special characters are not allowed. Try again");
+            } finally {
                 scanner.nextLine();
             }
         }
     }
+
 
     // Display win or lose
     public void displayResult(GameLogic game) {
@@ -108,9 +116,9 @@ public class GameUI {
                 return mode;
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input! Not a number, try again");
-                scanner.nextLine();
             } catch (Exception e) {
                 System.out.println("Only 1, 2 or 3. Try again");
+            } finally {
                 scanner.nextLine();
             }
         }
@@ -126,26 +134,49 @@ public class GameUI {
                 int wording = scanner.nextInt();
                 if(wording == 1) return null;
                 if(wording == 2) {
-                    System.out.print("Enter phrase: ");
-                    return scanner.next().toUpperCase();
+                    break;
                 }
                  throw new Exception();
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input! Not a number, try again");
-                scanner.nextLine();
             } catch (Exception e) {
                 System.out.println("Only 1 or 2 . Try again");
+            } finally {
+                scanner.nextLine();
+            }
+        }
+        return phraseInput();
+    }
+
+    // Restrict phrase
+    public String phraseInput(){
+        while(true){
+            try {
+                System.out.print("Enter phrase: ");
+                String phrase = scanner.next().toUpperCase();
+                for (int i = 0; i < phrase.length(); i++) {
+                    if (Character.isLetter(phrase.charAt(i))) continue;
+                    throw new Error();
+                }
+                return phrase;
+            } catch (Error e) {
+                System.out.println("Digit, special character and emoji " +
+                        "are not allowed! Try again");
+            } finally {
                 scanner.nextLine();
             }
         }
     }
 
+
+    // Show whose turn is it
     public void playerTurn(int playerNum){
         System.out.println("--------------------------");
         System.out.println("player "+playerNum+" turn");
         System.out.println("--------------------------");
     }
 
+    // Display game result if there are more than 1 player
     public void displayResult2P(GameLogic... players) {
         System.out.println("===== Game Over! =====");
         boolean won = false;
@@ -159,6 +190,7 @@ public class GameUI {
         }
         if (!won) System.out.println("DRAW! The word was: " + players[0].getHiddenWord());
 
+        // Create ArrayList to store all player info in different inner ArrayList
         List<List<String>> allPlayers = new ArrayList<>();
         for (GameLogic player : players){
             List<String> lines = new ArrayList<>();
@@ -166,6 +198,7 @@ public class GameUI {
             for (String hangman : getHangman(player.getIncorrectGuesses())){
                 lines.add(hangman);
             }
+
             lines.add(player.getPlayerName());
             lines.add("Incorrect Guesses: "+ player.getIncorrectGuesses()+"/"+player.getMaxIncorrectGuesses());
             lines.add(formatGuessedLetters(player.getGuessedLetters()));
@@ -174,6 +207,7 @@ public class GameUI {
         }
         int rows = allPlayers.get(0).size();
 
+        // print out all player info
         for (int row = 0; row < rows; row++) {
             for (List<String> player : allPlayers) {
                 System.out.printf("%-50s", player.get(row));
@@ -185,10 +219,15 @@ public class GameUI {
     public int PlayerNumber(){
         while(true) {
             try {
-                System.out.print("How many player ?");
-                return scanner.nextInt();
+                System.out.print("How many player ? ");
+                int num = scanner.nextInt();
+                if (num < 2) throw new Exception();
+                return num;
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input! Not a number, try again");
+            } catch (Exception e){
+                System.out.println("Less than 2! Invite more friend, try again");
+            } finally {
                 scanner.nextLine();
             }
         }

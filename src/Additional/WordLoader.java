@@ -1,12 +1,18 @@
-package Additional;
+/*  Group 4
+Deng Yonghan (10271600)
+Bo HaoTian (10270562)
+Dylan Carson Sisnawan (10270412)
+Muhammad Farhan Bin Rosni (10265771)
+Matthew Albert Cahyadi(10270548)
+*/
 
+package Additional;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import java.util.Arrays;
 import java.util.Random;
 public class WordLoader {
     private static String[] WORDS = new String[20];
@@ -18,6 +24,8 @@ public class WordLoader {
         String word = WORDS[random.nextInt(WORDS.length)];
         return word.substring(1, word.length() - 1).toUpperCase();
     }
+
+    // Fetch external API to retrieve 20 random words
     public void fetch() {
         try {
             URL url = new URL("https://random-word-api.herokuapp.com/word?number=20");

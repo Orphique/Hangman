@@ -1,3 +1,11 @@
+/*  Group 4
+Deng Yonghan (10271600)
+Bo HaoTian (10270562)
+Dylan Carson Sisnawan (10270412)
+Muhammad Farhan Bin Rosni (10265771)
+Matthew Albert Cahyadi(10270548)
+*/
+
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -36,12 +44,11 @@ public class GameUI {
                 return word.charAt(0); // Only one character
             } catch (InputMismatchException e) {
                 System.out.println("Only 1 letter. Try again");
-                scanner.nextLine();
             } catch (Exception e) {
                 System.out.println("Already guessed. Try again");
-                scanner.nextLine();
             } catch (Error e) {
                 System.out.println("Numbers and special characters are not allowed. Try again");
+            } finally {
                 scanner.nextLine();
             }
         }
